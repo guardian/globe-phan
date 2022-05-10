@@ -4,7 +4,7 @@ import { createOkResponse } from "./lib/response";
 import { putDataIntoS3Bucket } from "./lib/util";
 
 const getOphanData = async () => {
-  return JSON.parse(fs.readFileSync("./src/ophanData.json", "utf-8"));
+  return JSON.parse(fs.readFileSync("./ophanData.json", "utf-8"));
 };
 
 export const handler = async (): Promise<APIGatewayProxyResult> => {
