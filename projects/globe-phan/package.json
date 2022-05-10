@@ -19,7 +19,7 @@
     "typescript": "^3.5.3"
   },
   "scripts": {
-    "build": "ncc build src/index.ts -o dist/globe-phan-lambda -m -e aws-sdk",
+    "build": "ncc build src/index.ts -o dist/globe-phan-lambda -m -e aws-sdk && cp ./ophanData.json ./dist/globe-phan-lambda/",
     "deploy": "node-riffraff-artifact",
     "start": "ts-node-dev --ignore-watch node_modules src/index.ts",
     "test": "JEST_CIRCUS=1 jest --coverage",
