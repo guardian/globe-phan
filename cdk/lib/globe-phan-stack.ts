@@ -36,9 +36,8 @@ export class GlobephanStack extends Stack {
     const globephanDataBucket = new Bucket(this, "globe-phan-data", {
       versioned: false,
       bucketName: "globe-phan-data",
-      encryption: BucketEncryption.KMS_MANAGED,
-      publicReadAccess: false,
-      blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
+      encryption: BucketEncryption.UNENCRYPTED,
+      publicReadAccess: true,
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
