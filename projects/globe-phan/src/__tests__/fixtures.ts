@@ -1,8 +1,7 @@
 import { set, flow } from "lodash/fp";
 import { S3Event } from "aws-lambda";
-import { IUserTelemetryEvent } from "../../../definitions/IUserTelemetryEvent";
 
-export const events: IUserTelemetryEvent[] = [
+export const events = [
   {
     app: "example-app",
     stage: "PROD",
