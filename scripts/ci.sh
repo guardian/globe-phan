@@ -16,7 +16,7 @@ function setupNvm {
   nvm use
 }
 
-function setupEventApiLambda {
+function setupGlobephanLambda {
   cd $LAMBDA_DIR
   docker-compose up -d
   # Ensure localstack is up, and relevant resources have been created
@@ -40,7 +40,7 @@ function teardownEventApiLambda {
 }
 
 function setup {
-  setupEventApiLambda
+  setupGlobephanLambda
 }
 
 function teardown {

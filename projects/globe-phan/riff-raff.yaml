@@ -1,11 +1,11 @@
-stacks: [flexible]
+stacks: [globe-phan]
 regions: [eu-west-1]
 deployments:
     globe-phan-lambda:
         type: aws-lambda
         parameters:
             prefixStack: false
-            bucket: composer-dist
+            bucket: developer-playground-dist
             fileName: globe-phan-lambda.zip
             functionNames:
                 [globe-phan-lambda-]
