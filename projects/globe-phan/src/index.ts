@@ -1,7 +1,7 @@
+import https from "https";
 import { APIGatewayProxyResult } from "aws-lambda";
 import { createOkResponse } from "./lib/response";
 import { putDataIntoS3Bucket } from "./lib/util";
-import ophanData from "../ophanData.json";
 
 const bucketAtIndex = (ophanData: OphanData, index: number) =>
   ophanData.aggregations.snapshots_over_time.buckets[index];
@@ -18,6 +18,23 @@ const getNormalisedValue = (
 };
 
 type MinMaxMap = Record<string, { min: number; max: number }>;
+
+const fetchOphanData = () =>
+  new Promise((resolve, reject) => {
+    const req = https.request(
+      {
+        hostname: "api.ophan.co.uk",
+        port: 443,
+        path: "/api/map",
+      },
+      (response) => {
+        let body = "";
+        response.on("data", (acc) => (body += acc));
+        response.on("error", reject);
+        response.on("end", () => resolve(body));
+      }
+    );
+  });
 
 const processOphanData = (ophanData: OphanData) => {
   const minMaxMap: MinMaxMap = {};
@@ -89,6 +106,8 @@ type OphanData = {
 
 export const handler = async (): Promise<APIGatewayProxyResult> => {
   console.info("Globe-phan lambda invoked");
+
+  const ophanData = await fetchOphanData();
 
   const outputData = processOphanData(ophanData as any);
 
