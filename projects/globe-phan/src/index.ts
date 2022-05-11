@@ -25,6 +25,11 @@ const fetchOphanData = (): Promise<OphanData> =>
 const processOphanData = (ophanData: OphanData) => {
   let min = 0;
   let max = 0;
+  ophanData.forEach(({location, hits}, index) => {
+    if (location === "london") {
+      ophanData[index].hits = ophanData[index].hits / 3
+    }
+  })
   ophanData.forEach(({ hits }) => {
     if (max < hits) {
       max = hits;
@@ -38,9 +43,10 @@ const processOphanData = (ophanData: OphanData) => {
   const singlePercent = 100 / range;
 
   return ophanData.reduce((acc, { hits, location }) => {
+    const value = ((hits * singlePercent) / 100);
     return {
       ...acc,
-      [location]: (hits * singlePercent) / 100,
+      [location]: value + (((1 / value) / 1000)),
     };
   }, {} as Record<string, number>);
 };
